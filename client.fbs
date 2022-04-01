@@ -1,0 +1,25 @@
+namespace Assignment;
+
+enum Genders : byte { Male, Female }
+
+table Person {
+  name:string;
+  age:uint8;
+  weight:float32;
+  gender:Genders;
+}
+
+table Group {
+  group_name:string;
+  avg_age:float32;
+  avg_weight:float32;
+  name_list:[string];
+}
+
+union PersonOrGroup {Person, Group}
+
+table Client {
+  client:PersonOrGroup;
+}
+
+root_type Client;
