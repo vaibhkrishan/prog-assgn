@@ -40,3 +40,6 @@
 
 # Vim swap files
 *.swp
+
+# Ignore compiled directory for python
+Assignment/
