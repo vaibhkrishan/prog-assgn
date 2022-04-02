@@ -72,20 +72,19 @@ int main(int argc, const char* argv[]) {
   }
 
   const uint8_t *bf_ptr = reinterpret_cast<const uint8_t*>(inData);
+  int curOffset = 0;
 
-  unsigned int firstSize;
-  for (int i=3; i>=0; i--) {
-    firstSize <<= 8;
-    firstSize += bf_ptr[i];
+  while (curOffset < length) {
+    unsigned int curSize;
+    for (int i=3; i>=0; i--) {
+      curSize <<= 8;
+      curSize += bf_ptr[i];
+    }
+
+    processBuffer(bf_ptr);
+    bf_ptr += curSize + 4;
+    curOffset += curSize + 4;
   }
-
-  processBuffer(bf_ptr);
-
-  unsigned int secondSize = length - firstSize;
-  uint8_t *bf2_ptr = new uint8_t[length-firstSize];
-  memcpy(bf2_ptr, bf_ptr+firstSize+4, secondSize);
-  
-  processBuffer(bf2_ptr);
  
   return 0;
 }
